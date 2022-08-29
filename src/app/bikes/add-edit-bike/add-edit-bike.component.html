@@ -1,0 +1,61 @@
+<!-- <form ngNativeValidate> -->
+<form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+  <div class="form-group mb-3">
+    <div class="form-group">
+      <label for="valor">Valor</label>
+      <input type="number" class="form-control" id="valor" required min="1" max="99999"
+        placeholder="valor mínimo 1 e valor máximo 99999" [(ngModel)]="valor" name="valor">
+      <div *ngIf="!heroForm.controls['valor'].valid && heroForm.controls['valor'].touched" class="alert alert-danger">
+        Valor não permitido
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <div class="form-group">
+      <label for="marca">Marca</label>
+      <input type="text" class="form-control" id="marca" required [(ngModel)]="marca" name="marca">
+      <div *ngIf="!heroForm.controls['marca'].valid && heroForm.controls['marca'].touched" class="alert alert-danger">
+        Preencha esse campo
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <div class="form-group">
+      <label for="modelo">Modelo</label>
+      <input type="text" class="form-control" id="modelo" required [(ngModel)]="modelo" name="modelo">
+      <div *ngIf="!heroForm.controls['modelo'].valid && heroForm.controls['modelo'].touched" class="alert alert-danger">
+        Preencha esse campo
+      </div>
+    </div>
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label">Garantia</label>
+    &nbsp;
+    <select [(ngModel)]="garantiaOption" name="garantia" required>
+      <option value="" selected="selected" disabled="disabled">Selecione</option>
+      <option [ngValue]="o.value" *ngFor="let o of garantiaOptions">
+        {{o.name}}
+      </option>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+    <label class="form-label">Seguro</label>
+    &nbsp;
+    <select [(ngModel)]="seguroOption" name="seguro" required>
+      <option value="" selected="selected" disabled="disabled">Selecione</option>
+      <option [ngValue]="o.value" *ngFor="let o of seguroOptions">
+        {{o.name}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group mb-3">
+    <label for="comentarios" class="form-label">Comentários</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="comentarios"
+      name="comentarios"></textarea>
+  </div>
+  <button [disabled]="!heroForm.form.valid" (click)="addBike()" *ngIf="bike.id==0" class="btn btn-primary">
+    Adicionar
+  </button>
+  <button [disabled]="!heroForm.form.valid" (click)="updateBike()" *ngIf="bike.id!=0" class="btn btn-primary">
+    Atualizar
+  </button>
+</form>
